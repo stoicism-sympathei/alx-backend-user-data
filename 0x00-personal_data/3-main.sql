@@ -1,14 +1,15 @@
-#!/usr/bin/env python3
-"""
-Main file
-"""
+-- setup mysql server
+-- configure permissions
+CREATE DATABASE IF NOT EXISTS my_db;
+CREATE USER IF NOT EXISTS root@localhost IDENTIFIED BY 'root';
+GRANT ALL PRIVILEGES ON my_db.* TO 'root'@'localhost';
 
-get_db = __import__('filtered_logger').get_db
+USE my_db;
 
-db = get_db()
-cursor = db.cursor()
-cursor.execute("SELECT COUNT(*) FROM users;")
-for row in cursor:
-    print(row[0])
-cursor.close()
-db.close()
+DROP TABLE IF EXISTS users;
+CREATE TABLE users (
+    email VARCHAR(256)
+);
+
+INSERT INTO users(email) VALUES ("bob@dylan.com");
+INSERT INTO users(email) VALUES ("bib@dylan.com");
